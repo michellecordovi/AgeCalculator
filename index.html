@@ -19,11 +19,50 @@
 
 
 <body>
-  <div class="attribution">
+  <main>
+    <form>
+      <div class="form-input">
+        <label for="birth-day">Day</label>
+        <input type="text" id="birth-day"/>
+      </div>
+
+      <div class="form-input">
+        <label for="birth-day">Month</label>
+        <input type="text" id="birth-month"/>
+      </div>
+
+      <div class="form-input">
+        <label for="birth-day">Year</label>
+        <input type="text" id="birth-year"/>
+      </div>
+    </form>
+
+    <div id="divider">
+      <button>
+        <svg xmlns="http://www.w3.org/2000/svg" width="46" height="44" viewBox="0 0 46 44"><g fill="none" stroke="#FFF" stroke-width="2"><path d="M1 22.019C8.333 21.686 23 25.616 23 44M23 44V0M45 22.019C37.667 21.686 23 25.616 23 44"/></g></svg>
+      </button>
+    </div>
+
+    <section class="age-display">
+      <div id="years">
+        <h1><span>--</span>years</h1>
+      </div>
+
+      <div id="months">
+        <h1><span>--</span>months</h1>
+      </div>
+
+      <div id="days">
+        <h1><span>--</span>dayss</h1>
+      </div>
+    </section>
+  </main>
+
+  <footer class="attribution">
     Challenge by
     <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. Coded by <a href="#">Your
       Name Here</a>.
-  </div>
+    </footer>
 </body>
 
 </html>
