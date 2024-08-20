@@ -47,7 +47,7 @@ main {
 
 #divider-border{
     width: 100%;
-    border-bottom: 1px solid grey;
+    border-bottom: 1px solid hsl(0, 0%, 86%);
 }
 
 button {
@@ -68,6 +68,14 @@ form {
 .form-input {
     display: flex;
     flex-direction: column;
+    gap: 8px;
+}
+
+label{
+    text-transform: uppercase;
+    font-size: 14px;
+    color: hsl(0, 1%, 44%);
+    font-weight: 700;
 }
 
 input {
