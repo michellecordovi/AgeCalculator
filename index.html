@@ -23,17 +23,17 @@
     <form>
       <div class="form-input">
         <label for="birth-day">Day</label>
-        <input type="text" id="birth-day"/>
+        <input type="text" id="birth-day" size="2" minlength="1" maxLength="2" pattern="/^[-+]?\d+$/"/>
       </div>
 
       <div class="form-input">
         <label for="birth-day">Month</label>
-        <input type="text" id="birth-month"/>
+        <input type="text" id="birth-month" size="2" minlength="1" maxLength="2" pattern="/^[-+]?\d+$/"/>
       </div>
 
       <div class="form-input">
         <label for="birth-day">Year</label>
-        <input type="text" id="birth-year"/>
+        <input type="text" id="birth-year" size="4" minlength="4" maxLength="4" pattern="/^[-+]?\d+$/"/>
       </div>
     </form>
 
@@ -64,6 +64,8 @@
     <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. Coded by <a href="#">Your
       Name Here</a>.
     </footer>
+
+  <script src="./index.js"></script>
 </body>
 
 </html>
