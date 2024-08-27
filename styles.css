@@ -35,32 +35,13 @@ main {
     border-radius: 24px 24px 200px 24px;
 }
 
-/* DIVIDER */
-#divider {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    justify-content: center;
-    align-items: flex-end;
-    height: 96px;
-}
-
-#divider-border{
-    width: 100%;
-    border-bottom: 1px solid hsl(0, 0%, 86%);
-}
-
-button {
-    height: 7vw;
-    width: 7vw;
-    background-color: #854DFF;
-    border: none;
-    border-radius: 100%;
-    position: absolute;
-}
-
 /* FORM */
 form {
+    display: flex;
+    flex-direction: column;
+}
+
+#form-inputs{
     display: flex;
     gap: 32px;
 }
@@ -86,6 +67,31 @@ input {
     font-size: 32px;
     font-weight: 700;
     border: 1px solid hsl(0, 0%, 86%);
+}
+
+
+/* DIVIDER */
+#divider {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    justify-content: center;
+    align-items: flex-end;
+    height: 96px;
+}
+
+#divider-border{
+    width: 100%;
+    border-bottom: 1px solid hsl(0, 0%, 86%);
+}
+
+#submit-button{
+    height: 7vw;
+    width: 7vw;
+    background-color: #854DFF;
+    border: none;
+    border-radius: 100%;
+    position: absolute;
 }
 
 
