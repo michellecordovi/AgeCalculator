@@ -24,23 +24,25 @@
       <div id="form-inputs">
         <div class="form-input">
           <label for="birth-day">Day</label>
-          <input type="text" id="birth-day" size="2" minlength="1" maxLength="2" pattern="^\d{1,2}$" required />
+          <input type="text" id="birth-day" placeholder="DD" size="2" minlength="1" maxLength="2" pattern="^\d{1,2}$" required />
         </div>
 
         <div class="form-input">
           <label for="birth-day">Month</label>
-          <input type="text" id="birth-month" size="2" minlength="1" maxLength="2" pattern="^\d{1,2}$" required/>
+          <input type="text" id="birth-month" placeholder="MM" size="2" minlength="1" maxLength="2" pattern="^\d{1,2}$" required/>
         </div>
 
         <div class="form-input">
           <label for="birth-day">Year</label>
-          <input type="text" id="birth-year" size="4" minlength="4" maxLength="4" pattern="^\d{4}$" required/>
+          <input type="text" id="birth-year" placeholder="YYYY" size="4" minlength="4" maxLength="4" pattern="^\d{4}$" required/>
         </div>
       </div>
 
       <div id="divider">
         <div id="divider-border"></div>
-        <input type = "image" src="./assets/images/icon-arrow.svg" id="submit-button"/>
+        <div id="submit-button-container">
+          <input type = "image" src="./assets/images/icon-arrow.svg" id="submit-button" />
+        </div>
       </div>
     </form>
 
