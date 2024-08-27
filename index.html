@@ -24,17 +24,17 @@
       <div id="form-inputs">
         <div class="form-input">
           <label for="birth-day">Day</label>
-          <input type="text" id="birth-day" size="2" minlength="1" maxLength="2" pattern="/^[-+]?\d+$/" required />
+          <input type="text" id="birth-day" size="2" minlength="1" maxLength="2" required />
         </div>
 
         <div class="form-input">
           <label for="birth-day">Month</label>
-          <input type="text" id="birth-month" size="2" minlength="1" maxLength="2" pattern="/^[-+]?\d+$/" required/>
+          <input type="text" id="birth-month" size="2" minlength="1" maxLength="2" required/>
         </div>
 
         <div class="form-input">
           <label for="birth-day">Year</label>
-          <input type="text" id="birth-year" size="4" minlength="4" maxLength="4" pattern="/^[-+]?\d+$/" required/>
+          <input type="text" id="birth-year" size="4" minlength="4" maxLength="4" required/>
         </div>
       </div>
 
@@ -47,15 +47,15 @@
 
     <section class="age-display">
       <div id="years">
-        <h1><span>--</span> years</h1>
+        <h1><span id="calculated-years">--</span> years</h1>
       </div>
 
       <div id="months">
-        <h1><span>--</span> months</h1>
+        <h1><span id="calculated-months">--</span> months</h1>
       </div>
 
       <div id="days">
-        <h1><span>--</span> days</h1>
+        <h1><span id="calculated-days">--</span> days</h1>
       </div>
     </section>
   </main>
