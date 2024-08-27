@@ -28,6 +28,8 @@ inputDay.addEventListener("change", () => {
     birthDate=inputDay.value 
 })
 
+const inputs = [inputYear, inputMonth, inputDay]
+
 
 //DOM elements that will display the calculated years, months, and days
 const calculatedYears = document.getElementById("calculated-years");
@@ -43,43 +45,105 @@ const monthsWith28Days = 1;
 //form in the DOM
 const form = document.querySelector("form");
 
+//ERROR FUNCTIONS
+const yearError = inputYear.nextElementSibling;
+const monthError = inputMonth.nextElementSibling;
+const dayError = inputDay.nextElementSibling;
+
+function validateInputs(){
+    if (inputDay.value > 31 || inputDay.value < 1 ){
+        inputDay.style.border = "1px solid red"
+        inputDay.parentNode.querySelector("label").style.color = "red"
+        dayError.innerHTML = "Must be between 1 and 31"
+        return false
+    } else if(isNaN(inputDay.value) || inputDay.value % 1 !==0) {
+        inputDay.parentNode.querySelector("label").style.color = "red"
+        inputDay.style.border = "1px solid red"
+        dayError.innerHTML = "Must be a whole number"
+        return false;
+    } else {
+        inputDay.parentNode.querySelector("label").style.color = "hsl(0, 1%, 44%)"
+        inputDay.style.border = "1px solid hsl(0, 0%, 86%)"
+        dayError.innerHTML = ""
+    }
+
+    if(inputMonth.value > 12 || inputMonth.value < 1){
+        inputMonth.parentNode.querySelector("label").style.color = "red"
+        inputMonth.style.border = "1px solid red"
+        monthError.innerHTML = "Must be between 1 and 12"
+        return false
+    } else if(isNaN(inputMonth.value) || inputMonth.value % 1 !==0){
+        inputMonth.parentNode.querySelector("label").style.color = "red"
+        inputMonth.style.border = "1px solid red"
+        monthError.innerHTML = "Must be a whole number"
+        return false
+    } else {
+        inputMonth.parentNode.querySelector("label").style.color = "hsl(0, 1%, 44%)"
+        inputMonth.style.border = "1px solid hsl(0, 0%, 86%)"
+        monthError.innerHTML = ""
+    }
+
+    if (inputYear.value > currentYear){
+        inputYear.parentNode.querySelector("label").style.color = "red"
+        inputYear.style.border = "1px solid red"
+        yearError.innerHTML = "Must be in the past"
+        return false
+    } else if(isNaN(inputYear.value) || inputYear.value % 1 !==0) {
+        inputYear.parentNode.querySelector("label").style.color = "red"
+        inputYear.style.border = "1px solid red"
+        yearError.innerHTML = "Must be a whole number"
+        return false;
+    } else {
+        inputYear.parentNode.querySelector("label").style.color = "hsl(0, 1%, 44%)"
+        inputYear.style.border = "1px solid hsl(0, 0%, 86%)"
+        yearError.innerHTML = ""
+    }
+
+    return true
+}
+
+// SUBMIT FORM FUNCTION
 function handleSubmit(e) {
     e.preventDefault();
 
-    if((currentMonth > (birthMonth)) && (currentDayOfMonth >= birthDate)){
-        calculatedYears.innerHTML = currentYear - birthYear
-        calculatedMonths.innerHTML = currentMonth - birthMonth
-        calculatedDays.innerHTML = currentDayOfMonth - birthDate;
-
-    } else if((currentMonth > (birthMonth - 1)) && (currentDayOfMonth < birthDate)) {
-        calculatedYears.innerHTML = currentYear - birthYear
-        calculatedMonths.innerHTML = (currentMonth - 1) - birthMonth
-
-        if(monthsWith31Days.includes(currentMonth - 1)) {
-            calculatedDays.innerHTML = (31 - birthDate) + currentDayOfMonth;
-        } else if(monthsWith30Days.includes(currentMonth - 1)){
-            calculatedDays.innerHTML = (30 - birthDate) + currentDayOfMonth;
-        } else if(monthsWith28Days.includes(currentMonth - 1)){
-            calculatedDays.innerHTML = (28 - birthDate) + currentDayOfMonth;
-        }
-
-    } else if((currentMonth < (birthMonth)) && (currentDayOfMonth >= birthDate)) {
-        calculatedYears.innerHTML = (currentYear - 1) - birthYear
-        calculatedMonths.innerHTML = 12 - (birthMonth - currentMonth)
-        calculatedDays.innerHTML = currentDayOfMonth - birthDate;
-
-    } else if((currentMonth < (birthMonth)) && (currentDayOfMonth < birthDate)) {
-        calculatedYears.innerHTML = (currentYear - 1) - birthYear
-        calculatedMonths.innerHTML = 11 - (birthMonth - currentMonth);
-        
-        if(monthsWith31Days.includes(currentMonth - 1)) {
-            calculatedDays.innerHTML = (31 - birthDate) + currentDayOfMonth;
-        } else if(monthsWith30Days.includes(currentMonth - 1)){
-            calculatedDays.innerHTML = (30 - birthDate) + currentDayOfMonth;
-        } else if(monthsWith28Days.includes(currentMonth - 1)){
-            calculatedDays.innerHTML = (28 - birthDate) + currentDayOfMonth;
+    if(validateInputs() === true) {
+        if((currentMonth > (birthMonth)) && (currentDayOfMonth >= birthDate)){
+            calculatedYears.innerHTML = currentYear - birthYear
+            calculatedMonths.innerHTML = currentMonth - birthMonth
+            calculatedDays.innerHTML = currentDayOfMonth - birthDate;
+    
+        } else if((currentMonth > (birthMonth - 1)) && (currentDayOfMonth < birthDate)) {
+            calculatedYears.innerHTML = currentYear - birthYear
+            calculatedMonths.innerHTML = (currentMonth - 1) - birthMonth
+    
+            if(monthsWith31Days.includes(currentMonth - 1)) {
+                calculatedDays.innerHTML = (31 - birthDate) + currentDayOfMonth;
+            } else if(monthsWith30Days.includes(currentMonth - 1)){
+                calculatedDays.innerHTML = (30 - birthDate) + currentDayOfMonth;
+            } else if(monthsWith28Days.includes(currentMonth - 1)){
+                calculatedDays.innerHTML = (28 - birthDate) + currentDayOfMonth;
+            }
+    
+        } else if((currentMonth < (birthMonth)) && (currentDayOfMonth >= birthDate)) {
+            calculatedYears.innerHTML = (currentYear - 1) - birthYear
+            calculatedMonths.innerHTML = 12 - (birthMonth - currentMonth)
+            calculatedDays.innerHTML = currentDayOfMonth - birthDate;
+    
+        } else if((currentMonth < (birthMonth)) && (currentDayOfMonth < birthDate)) {
+            calculatedYears.innerHTML = (currentYear - 1) - birthYear
+            calculatedMonths.innerHTML = 11 - (birthMonth - currentMonth);
+            
+            if(monthsWith31Days.includes(currentMonth - 1)) {
+                calculatedDays.innerHTML = (31 - birthDate) + currentDayOfMonth;
+            } else if(monthsWith30Days.includes(currentMonth - 1)){
+                calculatedDays.innerHTML = (30 - birthDate) + currentDayOfMonth;
+            } else if(monthsWith28Days.includes(currentMonth - 1)){
+                calculatedDays.innerHTML = (28 - birthDate) + currentDayOfMonth;
+            }
         }
     }
+
+
  
 }
 
