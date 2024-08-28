@@ -40,7 +40,8 @@ const calculatedDays = document.getElementById("calculated-days");
 // /months and their number of days
 const monthsWith31Days = [0, 2, 4, 6, 7, 9, 11]
 const monthsWith30Days = [3, 5, 8, 10]
-const monthsWith28Days = 1;
+let monthsWith28Days = 1;
+let monthsWith29Days;
 
 //form in the DOM
 const form = document.querySelector("form");
@@ -54,7 +55,7 @@ function validateInputs(){
     if (inputDay.value > 31 || inputDay.value < 1 ){
         inputDay.style.border = "1px solid red"
         inputDay.parentNode.querySelector("label").style.color = "red"
-        dayError.innerHTML = "Must be between 1 and 31"
+        dayError.innerHTML = "Must be a valid day"
         return false
     } else if(isNaN(inputDay.value) || inputDay.value % 1 !==0) {
         inputDay.parentNode.querySelector("label").style.color = "red"
@@ -70,7 +71,7 @@ function validateInputs(){
     if(inputMonth.value > 12 || inputMonth.value < 1){
         inputMonth.parentNode.querySelector("label").style.color = "red"
         inputMonth.style.border = "1px solid red"
-        monthError.innerHTML = "Must be between 1 and 12"
+        monthError.innerHTML = "Must be a valid month"
         return false
     } else if(isNaN(inputMonth.value) || inputMonth.value % 1 !==0){
         inputMonth.parentNode.querySelector("label").style.color = "red"

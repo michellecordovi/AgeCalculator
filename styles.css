@@ -74,12 +74,25 @@ input {
     border: 1px solid hsl(0, 0%, 86%);
 }
 
-input:focus{
+input:focus,
+input:hover {
     outline:1px solid hsl(259, 100%, 65%);
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+    box-shadow: 0 0 0px 1000px white inset;
+    -webkit-text-fill-color: black; /* Adjust this to match your text color */
+    transition: background-color 5000s ease-in-out 0s;
+}
+
 .error-message {
+    height: 14px;
     color: red;
+    font-size: 14px;
 }
 
 
@@ -108,7 +121,11 @@ input:focus{
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.25s ease-in;
+    transition: width 0.25s ease-in-out, height 0.25s ease-in-out;
+}
+
+#submit-button-container:hover{
+    background-color:black;
 }
 
 #submit-button {
@@ -144,6 +161,17 @@ input:focus{
     #divider {
         align-items: center;
         margin: 32px 0px;
+        height: 64px;
+    }
+
+    #submit-button-container{
+        height: 64px;
+        width: 64px;
+    }
+
+    #submit-button {
+        height: 120%;
+        width: 120%;
     }
 }
 
@@ -165,23 +193,6 @@ input:focus{
     input{
         font-size: 20px;
     }
-
-    #divider{
-        height: 64px;
-    }
-
-    #submit-button-container{
-        height: 64px;
-        width: 64px;
-    }
-
-    #submit-button {
-        border: none;
-        outline: none;
-        height: 100%;
-        width: 100%;
-    }
-    
 }
 
 @media only screen and (max-width: 540px) {
@@ -189,9 +200,15 @@ input:focus{
         font-size: 54px;
     }
 
-    input {
+    .form-input input {
         padding: 12px 16px;
     }
+
+    .error-message {
+        height: 12px;
+        font-size: 12px;
+    }
+    
 }
 
 @media only screen and (max-width: 374px) {
