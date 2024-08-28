@@ -61,8 +61,8 @@ function validateInputs(){
         monthsWith29Days = [];
     }
 
-    //makes sure entered birth date is a valid integer
-    if (inputDay.value > 31 || inputDay.value < 1 ){
+    //makes sure entered birth date is a valid integer and is not left blank
+    if (inputDay.value > 31 || inputDay.value < 1){
         inputDay.style.border = "1px solid red"
         inputDay.parentNode.querySelector("label").style.color = "red"
         dayError.innerHTML = "Must be a valid day"
@@ -72,13 +72,18 @@ function validateInputs(){
         inputDay.style.border = "1px solid red"
         dayError.innerHTML = "Must be a whole number"
         return false;
+    } else if(inputDay.value === "") {
+        inputDay.style.border = "1px solid red"
+        inputDay.parentNode.querySelector("label").style.color = "red"
+        dayError.innerHTML = "This field is required"
+        return false
     } else {
         inputDay.parentNode.querySelector("label").style.color = "hsl(0, 1%, 44%)"
         inputDay.style.border = "1px solid hsl(0, 0%, 86%)"
         dayError.innerHTML = ""
     }
 
-    //makes sure entered month is a valid month of year
+    //makes sure entered month is a valid month of year and is not left blank
     if(inputMonth.value > 12 || inputMonth.value < 1){
         inputMonth.parentNode.querySelector("label").style.color = "red"
         inputMonth.style.border = "1px solid red"
@@ -89,13 +94,18 @@ function validateInputs(){
         inputMonth.style.border = "1px solid red"
         monthError.innerHTML = "Must be a whole number"
         return false
-    } else {
+    } else if(inputMonth.value === "") {
+        inputMonth.style.border = "1px solid red"
+        inputMonth.parentNode.querySelector("label").style.color = "red"
+        dayError.innerHTML = "This field is required"
+        return false
+    }  else {
         inputMonth.parentNode.querySelector("label").style.color = "hsl(0, 1%, 44%)"
         inputMonth.style.border = "1px solid hsl(0, 0%, 86%)"
         monthError.innerHTML = ""
     }
 
-    //makes sure entered year is a valid year in the past
+    //makes sure entered year is a valid year in the past and is not left blank
     if (inputYear.value > currentYear){
         inputYear.parentNode.querySelector("label").style.color = "red"
         inputYear.style.border = "1px solid red"
@@ -106,6 +116,11 @@ function validateInputs(){
         inputYear.style.border = "1px solid red"
         yearError.innerHTML = "Must be a whole number"
         return false;
+    } else if(inputYear.value === "") {
+        inputYear.style.border = "1px solid red"
+        inputYear.parentNode.querySelector("label").style.color = "red"
+        dayError.innerHTML = "This field is required"
+        return false
     } else {
         inputYear.parentNode.querySelector("label").style.color = "hsl(0, 1%, 44%)"
         inputYear.style.border = "1px solid hsl(0, 0%, 86%)"
