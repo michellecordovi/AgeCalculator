@@ -211,8 +211,8 @@ input:-webkit-autofill:active {
     
 }
 
-@media only screen and (max-width: 374px) {
+@media only screen and (max-width: 376px) {
     h1 {
-        font-size: 45px;
+        font-size: 42px;
     }
 }
