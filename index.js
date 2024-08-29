@@ -77,6 +77,11 @@ function validateInputs(){
         inputDay.parentNode.querySelector("label").style.color = "red"
         dayError.innerHTML = "This field is required"
         return false
+    } else if(birthYear == currentYear && currentMonth == birthMonth && currentDayOfMonth < birthDate){
+        inputDay.style.border = "1px solid red"
+        inputDay.parentNode.querySelector("label").style.color = "red"
+        dayError.innerHTML = "Must be in the past"
+        return false
     } else {
         inputDay.parentNode.querySelector("label").style.color = "hsl(0, 1%, 44%)"
         inputDay.style.border = "1px solid hsl(0, 0%, 86%)"
@@ -97,9 +102,14 @@ function validateInputs(){
     } else if(inputMonth.value === "") {
         inputMonth.style.border = "1px solid red"
         inputMonth.parentNode.querySelector("label").style.color = "red"
-        dayError.innerHTML = "This field is required"
+        monthError.innerHTML = "This field is required"
         return false
-    }  else {
+    } else if(birthYear == currentYear && currentMonth < birthMonth){
+        inputMonth.style.border = "1px solid red"
+        inputMonth.parentNode.querySelector("label").style.color = "red"
+        monthError.innerHTML = "Must be in the past"
+        return false
+    } else {
         inputMonth.parentNode.querySelector("label").style.color = "hsl(0, 1%, 44%)"
         inputMonth.style.border = "1px solid hsl(0, 0%, 86%)"
         monthError.innerHTML = ""
@@ -151,6 +161,11 @@ function handleSubmit(e) {
 
     if(validateInputs() === true) {
         if((currentMonth > (birthMonth)) && (currentDayOfMonth >= birthDate)){
+            calculatedYears.innerHTML = currentYear - birthYear
+            calculatedMonths.innerHTML = currentMonth - birthMonth
+            calculatedDays.innerHTML = currentDayOfMonth - birthDate;
+    
+        } else if((currentMonth == birthMonth) && (currentDayOfMonth >= birthDate)){
             calculatedYears.innerHTML = currentYear - birthYear
             calculatedMonths.innerHTML = currentMonth - birthMonth
             calculatedDays.innerHTML = currentDayOfMonth - birthDate;
