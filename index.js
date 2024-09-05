@@ -52,6 +52,7 @@ const yearError = inputYear.nextElementSibling;
 const monthError = inputMonth.nextElementSibling;
 const dayError = inputDay.nextElementSibling;
 
+
 function validateInputs(){
     if (birthYear % 4 === 0) {
         monthsWith28Days = [];
@@ -169,6 +170,20 @@ function handleSubmit(e) {
             calculatedYears.innerHTML = currentYear - birthYear
             calculatedMonths.innerHTML = currentMonth - birthMonth
             calculatedDays.innerHTML = currentDayOfMonth - birthDate;
+    
+        } else if((currentMonth == birthMonth) && (currentDayOfMonth <= birthDate)){
+            calculatedYears.innerHTML = (currentYear - 1) - birthYear
+            calculatedMonths.innerHTML = currentMonth - birthMonth
+            
+            if(monthsWith31Days.includes(currentMonth - 1)) {
+                calculatedDays.innerHTML = (31 - birthDate) + currentDayOfMonth;
+            } else if(monthsWith30Days.includes(currentMonth - 1)){
+                calculatedDays.innerHTML = (30 - birthDate) + currentDayOfMonth;
+            } else if(monthsWith28Days.includes(currentMonth - 1)){
+                calculatedDays.innerHTML = (28 - birthDate) + currentDayOfMonth;
+            } else if (monthsWith29Days.includes(currentMonth - 1)){
+                calculatedDays.innerHTML = (29 - birthDate) + currentDayOfMonth;
+            }
     
         } else if((currentMonth > (birthMonth - 1)) && (currentDayOfMonth < birthDate)) {
             calculatedYears.innerHTML = currentYear - birthYear
