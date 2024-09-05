@@ -55,21 +55,18 @@ function dayErrorStyles(message) {
     inputDay.style.border = "1px solid red"
     inputDay.parentNode.querySelector("label").style.color = "red"
     dayError.innerHTML = message
-    return false
 }
 
 function monthErrorStyles(message){
     inputMonth.parentNode.querySelector("label").style.color = "red"
     inputMonth.style.border = "1px solid red"
     monthError.innerHTML = message
-    return false
 }
 
 function yearErrorStyles(message){
     inputYear.parentNode.querySelector("label").style.color = "red"
     inputYear.style.border = "1px solid red"
     yearError.innerHTML = message
-    return false
 }
 
 
@@ -86,12 +83,16 @@ function validateInputs(){
     //makes sure entered birth date is a valid integer and is not left blank
     if (inputDay.value > 31 || inputDay.value < 1){
         dayErrorStyles("Must be a valid day")
+        return false;
     } else if(isNaN(inputDay.value) || inputDay.value % 1 !==0) {
         dayErrorStyles("Must be a whole number")
+        return false;
     } else if(inputDay.value === "") {
         dayErrorStyles("This field is required")
+        return false;
     } else if(birthYear == currentYear && currentMonth == birthMonth && currentDayOfMonth < birthDate){
         dayErrorStyles("Must be in the past")
+        return false;
     } else {
         inputDay.parentNode.querySelector("label").style.color = "hsl(0, 1%, 44%)"
         inputDay.style.border = "1px solid hsl(0, 0%, 86%)"
@@ -101,12 +102,16 @@ function validateInputs(){
     //makes sure entered month is a valid month of year and is not left blank
     if(inputMonth.value > 12 || inputMonth.value < 1){
         monthErrorStyles("Must be a valid month")
+        return false;
     } else if(isNaN(inputMonth.value) || inputMonth.value % 1 !==0){
         monthErrorStyles("Must be a whole number")
+        return false;
     } else if(inputMonth.value === "") {
         monthErrorStyles("This fiel is required")
+        return false;
     } else if(birthYear == currentYear && currentMonth < birthMonth){
         monthErrorStyles("Must be in the past")
+        return false;
     } else {
         inputMonth.parentNode.querySelector("label").style.color = "hsl(0, 1%, 44%)"
         inputMonth.style.border = "1px solid hsl(0, 0%, 86%)"
@@ -116,10 +121,13 @@ function validateInputs(){
     //makes sure entered year is a valid year in the past and is not left blank
     if (inputYear.value > currentYear){
         yearErrorStyles("Must be in the past")
+        return false;
     } else if(isNaN(inputYear.value) || inputYear.value % 1 !==0) {
         yearErrorStyles("Must be a whole number")
+        return false;
     } else if(inputYear.value === "") {
         yearErrorStyles("This field is required")
+        return false;
     } else {
         inputYear.parentNode.querySelector("label").style.color = "hsl(0, 1%, 44%)"
         inputYear.style.border = "1px solid hsl(0, 0%, 86%)"
@@ -129,8 +137,13 @@ function validateInputs(){
     //makes sure entered date exists in the month
     if(monthsWith30Days.includes(birthMonth) && birthDate > 30){
         dayErrorStyles("Must be a valid day")
+        return false;
     } else if(monthsWith28Days.includes(birthMonth) && birthDate > 28){
         dayErrorStyles("Must be a valid day")
+        return false;
+    } else if (monthsWith29Days.includes(birthMonth) && birthDate > 29){
+        dayErrorStyles("Must be a valid day")
+        return false;
     }
 
     return true
@@ -171,7 +184,7 @@ function handleSubmit(e) {
             calculatedMonths.innerHTML = currentMonth - birthMonth
             currentDayLessThanBirthDay()
     
-        } else if((currentMonth > (birthMonth - 1)) && (currentDayOfMonth < birthDate)) {
+        } else if((currentMonth > birthMonth) && (currentDayOfMonth < birthDate)) {
             calculatedYears.innerHTML = currentYear - birthYear
             calculatedMonths.innerHTML = (currentMonth - 1) - birthMonth
             currentDayLessThanBirthDay()
