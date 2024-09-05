@@ -28,8 +28,6 @@ inputDay.addEventListener("change", () => {
     birthDate=inputDay.value 
 })
 
-const inputs = [inputYear, inputMonth, inputDay]
-
 
 //DOM elements that will display the calculated years, months, and days
 const calculatedYears = document.getElementById("calculated-years");
@@ -52,7 +50,30 @@ const yearError = inputYear.nextElementSibling;
 const monthError = inputMonth.nextElementSibling;
 const dayError = inputDay.nextElementSibling;
 
+//adjusts the styling for day input, month input, and year input when there are errors
+function dayErrorStyles(message) {
+    inputDay.style.border = "1px solid red"
+    inputDay.parentNode.querySelector("label").style.color = "red"
+    dayError.innerHTML = message
+    return false
+}
 
+function monthErrorStyles(message){
+    inputMonth.parentNode.querySelector("label").style.color = "red"
+    inputMonth.style.border = "1px solid red"
+    monthError.innerHTML = message
+    return false
+}
+
+function yearErrorStyles(message){
+    inputYear.parentNode.querySelector("label").style.color = "red"
+    inputYear.style.border = "1px solid red"
+    yearError.innerHTML = message
+    return false
+}
+
+
+//valids all three inputs
 function validateInputs(){
     if (birthYear % 4 === 0) {
         monthsWith28Days = [];
@@ -64,25 +85,13 @@ function validateInputs(){
 
     //makes sure entered birth date is a valid integer and is not left blank
     if (inputDay.value > 31 || inputDay.value < 1){
-        inputDay.style.border = "1px solid red"
-        inputDay.parentNode.querySelector("label").style.color = "red"
-        dayError.innerHTML = "Must be a valid day"
-        return false
+        dayErrorStyles("Must be a valid day")
     } else if(isNaN(inputDay.value) || inputDay.value % 1 !==0) {
-        inputDay.parentNode.querySelector("label").style.color = "red"
-        inputDay.style.border = "1px solid red"
-        dayError.innerHTML = "Must be a whole number"
-        return false;
+        dayErrorStyles("Must be a whole number")
     } else if(inputDay.value === "") {
-        inputDay.style.border = "1px solid red"
-        inputDay.parentNode.querySelector("label").style.color = "red"
-        dayError.innerHTML = "This field is required"
-        return false
+        dayErrorStyles("This field is required")
     } else if(birthYear == currentYear && currentMonth == birthMonth && currentDayOfMonth < birthDate){
-        inputDay.style.border = "1px solid red"
-        inputDay.parentNode.querySelector("label").style.color = "red"
-        dayError.innerHTML = "Must be in the past"
-        return false
+        dayErrorStyles("Must be in the past")
     } else {
         inputDay.parentNode.querySelector("label").style.color = "hsl(0, 1%, 44%)"
         inputDay.style.border = "1px solid hsl(0, 0%, 86%)"
@@ -91,25 +100,13 @@ function validateInputs(){
 
     //makes sure entered month is a valid month of year and is not left blank
     if(inputMonth.value > 12 || inputMonth.value < 1){
-        inputMonth.parentNode.querySelector("label").style.color = "red"
-        inputMonth.style.border = "1px solid red"
-        monthError.innerHTML = "Must be a valid month"
-        return false
+        monthErrorStyles("Must be a valid month")
     } else if(isNaN(inputMonth.value) || inputMonth.value % 1 !==0){
-        inputMonth.parentNode.querySelector("label").style.color = "red"
-        inputMonth.style.border = "1px solid red"
-        monthError.innerHTML = "Must be a whole number"
-        return false
+        monthErrorStyles("Must be a whole number")
     } else if(inputMonth.value === "") {
-        inputMonth.style.border = "1px solid red"
-        inputMonth.parentNode.querySelector("label").style.color = "red"
-        monthError.innerHTML = "This field is required"
-        return false
+        monthErrorStyles("This fiel is required")
     } else if(birthYear == currentYear && currentMonth < birthMonth){
-        inputMonth.style.border = "1px solid red"
-        inputMonth.parentNode.querySelector("label").style.color = "red"
-        monthError.innerHTML = "Must be in the past"
-        return false
+        monthErrorStyles("Must be in the past")
     } else {
         inputMonth.parentNode.querySelector("label").style.color = "hsl(0, 1%, 44%)"
         inputMonth.style.border = "1px solid hsl(0, 0%, 86%)"
@@ -118,20 +115,11 @@ function validateInputs(){
 
     //makes sure entered year is a valid year in the past and is not left blank
     if (inputYear.value > currentYear){
-        inputYear.parentNode.querySelector("label").style.color = "red"
-        inputYear.style.border = "1px solid red"
-        yearError.innerHTML = "Must be in the past"
-        return false
+        yearErrorStyles("Must be in the past")
     } else if(isNaN(inputYear.value) || inputYear.value % 1 !==0) {
-        inputYear.parentNode.querySelector("label").style.color = "red"
-        inputYear.style.border = "1px solid red"
-        yearError.innerHTML = "Must be a whole number"
-        return false;
+        yearErrorStyles("Must be a whole number")
     } else if(inputYear.value === "") {
-        inputYear.style.border = "1px solid red"
-        inputYear.parentNode.querySelector("label").style.color = "red"
-        dayError.innerHTML = "This field is required"
-        return false
+        yearErrorStyles("This field is required")
     } else {
         inputYear.parentNode.querySelector("label").style.color = "hsl(0, 1%, 44%)"
         inputYear.style.border = "1px solid hsl(0, 0%, 86%)"
@@ -140,18 +128,25 @@ function validateInputs(){
 
     //makes sure entered date exists in the month
     if(monthsWith30Days.includes(birthMonth) && birthDate > 30){
-        inputDay.style.border = "1px solid red"
-        inputDay.parentNode.querySelector("label").style.color = "red"
-        dayError.innerHTML = "Must be a valid day"
-        return false
+        dayErrorStyles("Must be a valid day")
     } else if(monthsWith28Days.includes(birthMonth) && birthDate > 28){
-        inputDay.style.border = "1px solid red"
-        inputDay.parentNode.querySelector("label").style.color = "red"
-        dayError.innerHTML = "Must be a valid day"
-        return false
+        dayErrorStyles("Must be a valid day")
     }
 
     return true
+}
+
+//function to calculate number of days when current day of the month is less than the birth day
+function currentDayLessThanBirthDay(){
+    if(monthsWith31Days.includes(currentMonth - 1)) {
+        calculatedDays.innerHTML = (31 - birthDate) + currentDayOfMonth;
+    } else if(monthsWith30Days.includes(currentMonth - 1)){
+        calculatedDays.innerHTML = (30 - birthDate) + currentDayOfMonth;
+    } else if(monthsWith28Days.includes(currentMonth - 1)){
+        calculatedDays.innerHTML = (28 - birthDate) + currentDayOfMonth;
+    } else if (monthsWith29Days.includes(currentMonth - 1)){
+        calculatedDays.innerHTML = (29 - birthDate) + currentDayOfMonth;
+    }
 }
 
 // SUBMIT FORM FUNCTION
@@ -161,7 +156,7 @@ function handleSubmit(e) {
     validateInputs()
 
     if(validateInputs() === true) {
-        if((currentMonth > (birthMonth)) && (currentDayOfMonth >= birthDate)){
+        if((currentMonth > birthMonth) && (currentDayOfMonth >= birthDate)){
             calculatedYears.innerHTML = currentYear - birthYear
             calculatedMonths.innerHTML = currentMonth - birthMonth
             calculatedDays.innerHTML = currentDayOfMonth - birthDate;
@@ -174,54 +169,25 @@ function handleSubmit(e) {
         } else if((currentMonth == birthMonth) && (currentDayOfMonth <= birthDate)){
             calculatedYears.innerHTML = (currentYear - 1) - birthYear
             calculatedMonths.innerHTML = currentMonth - birthMonth
-            
-            if(monthsWith31Days.includes(currentMonth - 1)) {
-                calculatedDays.innerHTML = (31 - birthDate) + currentDayOfMonth;
-            } else if(monthsWith30Days.includes(currentMonth - 1)){
-                calculatedDays.innerHTML = (30 - birthDate) + currentDayOfMonth;
-            } else if(monthsWith28Days.includes(currentMonth - 1)){
-                calculatedDays.innerHTML = (28 - birthDate) + currentDayOfMonth;
-            } else if (monthsWith29Days.includes(currentMonth - 1)){
-                calculatedDays.innerHTML = (29 - birthDate) + currentDayOfMonth;
-            }
+            currentDayLessThanBirthDay()
     
         } else if((currentMonth > (birthMonth - 1)) && (currentDayOfMonth < birthDate)) {
             calculatedYears.innerHTML = currentYear - birthYear
             calculatedMonths.innerHTML = (currentMonth - 1) - birthMonth
+            currentDayLessThanBirthDay()
     
-            if(monthsWith31Days.includes(currentMonth - 1)) {
-                calculatedDays.innerHTML = (31 - birthDate) + currentDayOfMonth;
-            } else if(monthsWith30Days.includes(currentMonth - 1)){
-                calculatedDays.innerHTML = (30 - birthDate) + currentDayOfMonth;
-            } else if(monthsWith28Days.includes(currentMonth - 1)){
-                calculatedDays.innerHTML = (28 - birthDate) + currentDayOfMonth;
-            } else if(monthsWith29Days.includes(currentMonth - 1)){
-                calculatedDays.innerHTML = (29 - birthDate) + currentDayOfMonth;
-            }
-    
-        } else if((currentMonth < (birthMonth)) && (currentDayOfMonth >= birthDate)) {
+        } else if((currentMonth < birthMonth) && (currentDayOfMonth >= birthDate)) {
             calculatedYears.innerHTML = (currentYear - 1) - birthYear
             calculatedMonths.innerHTML = 12 - (birthMonth - currentMonth)
             calculatedDays.innerHTML = currentDayOfMonth - birthDate;
     
-        } else if((currentMonth < (birthMonth)) && (currentDayOfMonth < birthDate)) {
+        } else if((currentMonth < birthMonth) && (currentDayOfMonth < birthDate)) {
             calculatedYears.innerHTML = (currentYear - 1) - birthYear
             calculatedMonths.innerHTML = 11 - (birthMonth - currentMonth);
-            
-            if(monthsWith31Days.includes(currentMonth - 1)) {
-                calculatedDays.innerHTML = (31 - birthDate) + currentDayOfMonth;
-            } else if(monthsWith30Days.includes(currentMonth - 1)){
-                calculatedDays.innerHTML = (30 - birthDate) + currentDayOfMonth;
-            } else if(monthsWith28Days.includes(currentMonth - 1)){
-                calculatedDays.innerHTML = (28 - birthDate) + currentDayOfMonth;
-            } else if (monthsWith29Days.includes(currentMonth - 1)){
-                calculatedDays.innerHTML = (29 - birthDate) + currentDayOfMonth;
-            }
+            currentDayLessThanBirthDay()
         }
     }
 
-
- 
 }
 
 form.addEventListener("submit", handleSubmit)
